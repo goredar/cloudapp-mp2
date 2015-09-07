@@ -152,7 +152,8 @@ public class TopPopularLinks extends Configured implements Tool {
             this.N = conf.getInt("N", 10);
         }
         public void reduce(NullWritable key, Iterable<IntArrayWritable> links, Context context) throws IOException, InterruptedException {
-            for (IntArrayWritable pair : links) {
+            for (IntArrayWritable val : links) {
+                Integer[] pair= (Integer[]) val.toArray();
                 context.write(new IntWritable(pair[0]), new IntWritable(pair[1]));
             }
         }
