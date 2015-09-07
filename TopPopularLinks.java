@@ -118,7 +118,7 @@ public class TopPopularLinks extends Configured implements Tool {
 
     public static class TopLinksMap extends Mapper<Text, Text, NullWritable, IntArrayWritable> {
         Integer N;
-        private TreeSet<Pair<Integer, Integer>> countTopLinks = new TreeSet<>();
+        private TreeSet<Pair<Integer, Integer>> countTopLinks = new TreeSet<Pair<Integer, Integer>>();
 
         @Override
         protected void setup(Context context) throws IOException,InterruptedException {
