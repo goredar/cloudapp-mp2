@@ -155,10 +155,24 @@ public class PopularityLeague extends Configured implements Tool {
 
         @Override
         protected void cleanup(Context context) throws IOException, InterruptedException {
+            int prevValue = 0;
+            int prevCounter = 0;
+            int counter = this.countTopLinks.size() - 1;
+            int rank;
             for (Pair<Integer, Integer> item : this.countTopLinks) {
-                Integer[] integers = {item.second, item.first};
+                if (prevValue == item.first) {
+                    rank = prevCounter;
+                }
+                else {
+                    rank = counter;
+                    prevCounter = counter;
+                }
+
+                Integer[] integers = {item.second, rank};
                 IntArrayWritable val = new IntArrayWritable(integers);
                 context.write(NullWritable.get(), val);
+                prevValue = item.first;
+                counter -= 1;
             }
         }
     }
