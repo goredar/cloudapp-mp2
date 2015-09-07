@@ -190,6 +190,8 @@ public class TopTitleStatistics extends Configured implements Tool {
         @Override
         public void reduce(NullWritable key, Iterable<TextArrayWritable> values, Context context) throws IOException, InterruptedException {
             Integer sum, mean, max, min, var, sumOfDist;
+            sum = 0;
+            sumOfDist = 0;
 
             for (TextArrayWritable val: values) {
                 Text[] pair= (Text[]) val.toArray();
@@ -201,14 +203,14 @@ public class TopTitleStatistics extends Configured implements Tool {
                 sum += count;
             }
 
-            mean = Math.floor(sum / this.topCounts.size());
+            mean = Math.round(sum / this.topCounts.size());
             min = Collections.min(this.topCounts);
             max = Collections.max(this.topCounts);
 
             for (Integer count: this.topCounts) {
                 sumOfDist += (mean - count) * (mean - count);
             }
-            var = Math.floor(sumOfDist / this.topCounts.size());
+            var = Math.round(sumOfDist / this.topCounts.size());
 
             context.write(new Text("Mean"), new IntWritable(mean));
             context.write(new Text("Sum"), new IntWritable(sum));
