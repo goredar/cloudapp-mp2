@@ -206,7 +206,7 @@ public class TopTitleStatistics extends Configured implements Tool {
             max = Collections.max(this.topCounts);
 
             for (Integer count: this.topCounts) {
-                sumOfDist += (mean - count) * (mean - count)
+                sumOfDist += (mean - count) * (mean - count);
             }
             var = Math.floor(sumOfDist / this.topCounts.size());
 
