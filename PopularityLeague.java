@@ -125,7 +125,7 @@ public class PopularityLeague extends Configured implements Tool {
             tokenizer = new StringTokenizer(links, " ");
             while (tokenizer.hasMoreTokens()) {
                 String nextLink = tokenizer.nextToken().trim();
-                if (!this.league.contains(nextLink)) {
+                if (this.league.contains(nextLink)) {
                     context.write(new IntWritable(Integer.parseInt(nextLink)), new IntWritable(1));
                 }
             }
@@ -157,9 +157,6 @@ public class PopularityLeague extends Configured implements Tool {
             Integer link = Integer.parseInt(key.toString());
             Integer count = Integer.parseInt(value.toString());
             this.countTopLinks.add(new Pair<Integer, Integer>(count, link));
-            if (this.countTopLinks.size() > this.N) {
-                this.countTopLinks.remove(this.countTopLinks.first());
-            }
         }
 
         @Override
