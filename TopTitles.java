@@ -182,7 +182,7 @@ public class TopTitles extends Configured implements Tool {
 
     public static class TopTitlesReduce extends Reducer<NullWritable, TextArrayWritable, Text, IntWritable> {
         Integer N;
-        private TreeSet<Pair<Integer, Integer>> countTopTitles = new TreeSet<Pair<Integer, Integer>>();
+        private TreeSet<Pair<Integer, String>> countTopTitles = new TreeSet<Pair<Integer, String>>();
         // TODO
 
         @Override
