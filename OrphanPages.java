@@ -27,8 +27,8 @@ public class OrphanPages extends Configured implements Tool {
     @Override
     public int run(String[] args) throws Exception {
         Job job = Job.getInstance(this.getConf(), "Orphan Pages");
-        job.setOutputKeyClass(Text.class);
-        job.setOutputValueClass(IntWritable.class);
+        job.setOutputKeyClass(IntWritable.class);
+        job.setOutputValueClass(NullWritable.class);
 
         job.setMapOutputKeyClass(IntWritable.class);
         job.setMapOutputValueClass(IntWritable.class);
@@ -67,7 +67,7 @@ public class OrphanPages extends Configured implements Tool {
                 linkCount += count.get();
             }
             if (linkCount == 0) {
-                context.write(NullWritable.get(), key);
+                context.write(key, NullWritable.get());
             }
         }
     }
