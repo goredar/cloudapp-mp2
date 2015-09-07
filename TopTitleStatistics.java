@@ -178,8 +178,7 @@ public class TopTitleStatistics extends Configured implements Tool {
 
     public static class TopTitlesStatReduce extends Reducer<NullWritable, TextArrayWritable, Text, IntWritable> {
         Integer N;
-        List<Integer> topCounts;
-        // TODO
+        List<Integer> topCounts = new ArrayList<>();
 
         @Override
         protected void setup(Context context) throws IOException,InterruptedException {
@@ -195,8 +194,8 @@ public class TopTitleStatistics extends Configured implements Tool {
 
             for (TextArrayWritable val: values) {
                 Text[] pair= (Text[]) val.toArray();
-                String word = pair[0].toString();
-                this.topCounts.add(Integer.parseInt(pair[1].toString()));
+                Integer count = Integer.parseInt(pair[1].toString());
+                this.topCounts.add(count);
             }
 
             for (Integer count: this.topCounts) {
