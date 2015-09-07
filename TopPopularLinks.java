@@ -72,8 +72,8 @@ public class TopPopularLinks extends Configured implements Tool {
         jobB.setOutputKeyClass(IntWritable.class);
         jobB.setOutputValueClass(IntWritable.class);
 
-        jobB.setMapOutputKeyClass(IntWritable.class);
-        jobB.setMapOutputValueClass(IntWritable.class);
+        jobB.setMapOutputKeyClass(NullWritable.class);
+        jobB.setMapOutputValueClass(IntArrayWritable.class);
 
         jobB.setMapperClass(TopLinksMap.class);
         jobB.setReducerClass(TopLinksReduce.class);
@@ -116,7 +116,7 @@ public class TopPopularLinks extends Configured implements Tool {
         }
     }
 
-    public static class TopLinksMap extends Mapper<IntWritable, IntWritable, NullWritable, IntArrayWritable> {
+    public static class TopLinksMap extends Mapper<Text, Text, NullWritable, IntArrayWritable> {
         Integer N;
         private TreeSet<Pair<Integer, Integer>> countTopLinks = new TreeSet<>();
 
@@ -126,7 +126,9 @@ public class TopPopularLinks extends Configured implements Tool {
             this.N = conf.getInt("N", 10);
         }
         @Override
-        public void map(IntWritable link, IntWritable count, Context context) throws IOException, InterruptedException {
+        public void map(Text key, Text value, Context context) throws IOException, InterruptedException {
+            Integer link = Integer.parseInt(key.toString());
+            Integer count = Integer.parseInt(value.toString());
             this.countTopLinks.add(new Pair<Integer, Integer>(link.get(), count.get()));
             if (this.countTopLinks.size() > this.N) {
                 this.countTopLinks.remove(this.countTopLinks.first());
