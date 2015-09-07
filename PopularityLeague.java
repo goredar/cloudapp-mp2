@@ -26,7 +26,7 @@ import java.lang.Integer;
 
 
 public class PopularityLeague extends Configured implements Tool {
-    public static final Log LOG = LogFactory.getLog(PopularityLeague.class);
+    //public static final Log LOG = LogFactory.getLog(PopularityLeague.class);
 
     public static void main(String[] args) throws Exception {
         int res = ToolRunner.run(new Configuration(), new PopularityLeague(), args);
@@ -55,7 +55,7 @@ public class PopularityLeague extends Configured implements Tool {
         Path tmpPath = new Path("/mp2/tmp");
         fs.delete(tmpPath, true);
 
-        Job jobA = Job.getInstance(conf, "Top Popular Links");
+        Job jobA = Job.getInstance(conf, "Popularity League");
         jobA.setOutputKeyClass(IntWritable.class);
         jobA.setOutputValueClass(IntWritable.class);
 
@@ -65,10 +65,10 @@ public class PopularityLeague extends Configured implements Tool {
         FileInputFormat.setInputPaths(jobA, new Path(args[0]));
         FileOutputFormat.setOutputPath(jobA, tmpPath);
 
-        jobA.setJarByClass(TopPopularLinks.class);
+        jobA.setJarByClass(PopularityLeague.class);
         jobA.waitForCompletion(true);
 
-        Job jobB = Job.getInstance(conf, "Top Popular Links");
+        Job jobB = Job.getInstance(conf, "Popularity League");
         jobB.setOutputKeyClass(IntWritable.class);
         jobB.setOutputValueClass(IntWritable.class);
 
@@ -85,7 +85,7 @@ public class PopularityLeague extends Configured implements Tool {
         jobB.setInputFormatClass(KeyValueTextInputFormat.class);
         jobB.setOutputFormatClass(TextOutputFormat.class);
 
-        jobB.setJarByClass(TopPopularLinks.class);
+        jobB.setJarByClass(PopularityLeague.class);
         return jobB.waitForCompletion(true) ? 0 : 1;
     }
 
