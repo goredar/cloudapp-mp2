@@ -144,14 +144,8 @@ public class PopularityLeague extends Configured implements Tool {
     }
 
     public static class TopLinksMap extends Mapper<Text, Text, NullWritable, IntArrayWritable> {
-        Integer N;
         private TreeSet<Pair<Integer, Integer>> countTopLinks = new TreeSet<Pair<Integer, Integer>>();
 
-        @Override
-        protected void setup(Context context) throws IOException,InterruptedException {
-            Configuration conf = context.getConfiguration();
-            this.N = conf.getInt("N", 10);
-        }
         @Override
         public void map(Text key, Text value, Context context) throws IOException, InterruptedException {
             Integer link = Integer.parseInt(key.toString());
@@ -170,13 +164,8 @@ public class PopularityLeague extends Configured implements Tool {
     }
 
     public static class TopLinksReduce extends Reducer<NullWritable, IntArrayWritable, IntWritable, IntWritable> {
-        Integer N;
 
         @Override
-        protected void setup(Context context) throws IOException,InterruptedException {
-            Configuration conf = context.getConfiguration();
-            this.N = conf.getInt("N", 10);
-        }
         public void reduce(NullWritable key, Iterable<IntArrayWritable> links, Context context) throws IOException, InterruptedException {
             for (IntArrayWritable val : links) {
                 IntWritable[] pair= (IntWritable[]) val.toArray();
