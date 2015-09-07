@@ -164,7 +164,7 @@ public class TopTitles extends Configured implements Tool {
             String word = key.toString();
             this.countTopTitles.add(new Pair<Integer, String>(count, word));
             if (this.countTopTitles.size() > this.N) {
-                this.countTopTitles.remove(this.countTopTitles.first())
+                this.countTopTitles.remove(this.countTopTitles.first());
             }
         }
 
@@ -197,11 +197,9 @@ public class TopTitles extends Configured implements Tool {
             for (TextArrayWritable val: values) {
                 Text[] pair= (Text[]) val.toArray();
                 String word = pair[0].toString();
-                Integer count =
-                        Integer.parseInt(pair[1].toString());
-                this.countTopTitles.add(new Pair<Integer,
-                        String>(count, word));
-                if (this.countTopTitles.size() > 10) {
+                Integer count = Integer.parseInt(pair[1].toString());
+                this.countTopTitles.add(new Pair<Integer, String>(count, word));
+                if (this.countTopTitles.size() > this.N) {
                     this.countTopTitles.remove(this.countTopTitles.first());
                 }
             }
