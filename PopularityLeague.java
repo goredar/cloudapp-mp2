@@ -112,16 +112,10 @@ public class PopularityLeague extends Configured implements Tool {
 
             Configuration conf = context.getConfiguration();
             //String leaguePath = conf.get("league");
+            String lg = "5300058 81615 1804986 3294332 3078798 1 3 2370447";
+            this.league = Arrays.asList(lg.split(" "));
             //this.league = Arrays.asList(readHDFSFile(leaguePath, conf).split("\n"));
             //this.league.clear();
-            this.league.add("5300058");
-            this.league.add("81615");
-            this.league.add("1804986");
-            this.league.add("3294332");
-            this.league.add("3078798");
-            this.league.add("1");
-            this.league.add("3");
-            this.league.add("2370447");
         }
 
         @Override
