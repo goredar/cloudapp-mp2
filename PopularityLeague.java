@@ -111,8 +111,17 @@ public class PopularityLeague extends Configured implements Tool {
         protected void setup(Context context) throws IOException,InterruptedException {
 
             Configuration conf = context.getConfiguration();
-            String leaguePath = "/mp2/misc/league.txt"; //conf.get("league");
+            String leaguePath = conf.get("league");
             this.league = Arrays.asList(readHDFSFile(leaguePath, conf).split("\n"));
+            this.league.clear();
+            this.league.add("5300058");
+            this.league.add("81615");
+            this.league.add("1804986");
+            this.league.add("3294332");
+            this.league.add("3078798");
+            this.league.add("1");
+            this.league.add("3");
+            this.league.add("2370447");
         }
 
         @Override
