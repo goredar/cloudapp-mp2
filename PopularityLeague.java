@@ -111,10 +111,10 @@ public class PopularityLeague extends Configured implements Tool {
         protected void setup(Context context) throws IOException,InterruptedException {
 
             Configuration conf = context.getConfiguration();
-            //String leaguePath = conf.get("league");
-            String lg = "5300058 81615 1804986 3294332 3078798 1 3 2370447";
-            this.league = Arrays.asList(lg.split(" "));
-            //this.league = Arrays.asList(readHDFSFile(leaguePath, conf).split("\n"));
+            String leaguePath = conf.get("league");
+            //String lg = "5300058 81615 1804986 3294332 3078798 1 3 2370447";
+            //this.league = Arrays.asList(lg.split(" "));
+            this.league = Arrays.asList(readHDFSFile(leaguePath, conf).split("\n"));
             //this.league.clear();
         }
 
