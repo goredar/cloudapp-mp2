@@ -157,7 +157,7 @@ public class PopularityLeague extends Configured implements Tool {
         protected void cleanup(Context context) throws IOException, InterruptedException {
             int prevValue = 0;
             int prevCounter = 0;
-            int counter = this.countTopLinks.size() - 1;
+            int counter = 0;
             int rank;
             for (Pair<Integer, Integer> item : this.countTopLinks) {
                 if (prevValue == item.first) {
@@ -172,7 +172,7 @@ public class PopularityLeague extends Configured implements Tool {
                 IntArrayWritable val = new IntArrayWritable(integers);
                 context.write(NullWritable.get(), val);
                 prevValue = item.first;
-                counter -= 1;
+                counter += 1;
             }
         }
     }
@@ -210,8 +210,8 @@ class Pair<A extends Comparable<? super A>,
 
     @Override
     public int compareTo(Pair<A, B> o) {
-        int cmp = o == null ? 1 : (o.first).compareTo(this.first);
-        return cmp == 0 ? (o.second).compareTo(this.second) : cmp;
+        int cmp = o == null ? 1 : (this.first).compareTo(o.first);
+        return cmp == 0 ? (this.second).compareTo(o.second) : cmp;
     }
 
     @Override
